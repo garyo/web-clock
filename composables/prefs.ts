@@ -1,11 +1,12 @@
 import {reactive} from 'vue'
 
-const config = reactive({
+const prefs = reactive({
   fontSize: '12vw',
+  dateFontRelSize: '0.8em',
   timeColor: '#eee',
   dateColor: '#ccc',
 })
 
-export function useConfig() {
-  return config
+export function usePrefs() {
+  return prefs
 }

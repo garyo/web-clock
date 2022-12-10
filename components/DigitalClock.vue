@@ -3,7 +3,7 @@
     fluid
     fill-height
     class="clock"
-    :style="{fontSize: config.fontSize}"
+    :style="{fontSize: prefs.fontSize}"
   >
     <v-row
       no-gutters
@@ -12,7 +12,7 @@
       <v-col align="center">
         <div
           class="time"
-          :style="{color: config.timeColor}"
+          :style="{color: prefs.timeColor}"
         >
           {{ timeString }}
         </div>
@@ -25,7 +25,7 @@
       <v-col align="center">
         <div
           class="date"
-          :style="{color: config.dateColor}"
+          :style="{color: prefs.dateColor, fontSize: prefs.dateFontRelSize}"
         >
           {{ dateString }}
         </div>
@@ -36,7 +36,6 @@
 
 <script setup>
 import {DateTime} from 'luxon'
-import {useConfig} from '../composables/model'
 
 const props = defineProps({
   clockStyle: {
@@ -53,7 +52,7 @@ const props = defineProps({
   }
 })
 
-let config = useConfig()
+let prefs = usePrefs()
 let dateString = ref("...thinking...")
 let timeString = ref("...thinking...")
 let timer = undefined

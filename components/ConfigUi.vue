@@ -2,7 +2,9 @@
   <div>
     <v-btn
       class="menu-button"
-      :class="{open: drawer}"
+      icon
+      color="rgba(100, 100, 100, 0.6)"
+      :class="{open: drawerOpen}"
       @click="drawerOpen=!drawerOpen"
     >
       ☰
@@ -10,38 +12,24 @@
     <v-navigation-drawer
       v-model="drawerOpen"
       class="nav-drawer"
-      color="rgba(30, 30, 30, 0.5)"
+      color="rgba(100, 100, 100, 0.5)"
       absolute
     >
-      <v-list>
-        <v-card>
-          <v-card-title>Font Size</v-card-title>
-          <v-slider
-            v-model="fontSizeSliderVal"
-            max="100"
-            min="1"
-            @input="onFontSize($event)"
-          />
-        </v-card>
-        <v-card>
-          <v-card-title>Time Brightness</v-card-title>
-          <v-slider
-            v-model="brightessSliderVal"
-            max="100"
-            min="1"
-            @input="onBrightness($event)"
-          />
-        </v-card>
-        <v-card>
-          <v-card-title>Date Brightness</v-card-title>
-          <v-slider
-            v-model="dateBrightessSliderVal"
-            max="100"
-            min="1"
-            @input="onDateBrightness($event)"
-          />
-        </v-card>
-      </v-list>
+      <v-container>
+        <v-row>
+          <v-col>
+            <v-slider
+              v-for="slider in sliderDefs"
+              :key="slider.label"
+              color="#ddd"
+              v-model=slider.model.value
+              :label=slider.label
+              min="1"
+              max="100"
+            />
+          </v-col>
+        </v-row>
+      </v-container>
     </v-navigation-drawer>
   </div>
 </template>
@@ -50,33 +38,39 @@
 
 import {useConfig} from '../composables/model'
 
-const config = useConfig();
+const theConfig = useConfig();
 
-const drawerOpen = ref<boolean>(true)
+const drawerOpen = ref(true)
 const fontSizeSliderVal = ref(12)
 const brightnessSliderVal = ref(100)
 const dateBrightnessSliderVal = ref(90)
 
-function onFontSize(value) {
-  config.fontSize = value * 20 / 100 + 'vw'
-}
-function onBrightness(value) {
+watch(fontSizeSliderVal, (value: number) => {
+  theConfig.fontSize = value * 20 / 100 + 'vw'
+})
+
+watch(brightnessSliderVal, (value: number) => {
   const scaledVal = Math.round(value * 255 / 100)
-  config.timeColor = `rgba(${scaledVal},${scaledVal},${scaledVal})`
-}
-function onDateBrightness(value) {
+  theConfig.timeColor = `rgba(${scaledVal},${scaledVal},${scaledVal})`
+})
+
+watch(dateBrightnessSliderVal, (value: number) => {
   const scaledVal = Math.round(value * 255 / 100)
-  config.dateColor = `rgba(${scaledVal},${scaledVal},${scaledVal})`
-}
+  theConfig.dateColor = `rgba(${scaledVal},${scaledVal},${scaledVal})`
+})
+
+const sliderDefs = [
+  { label: "Font Size", model: fontSizeSliderVal },
+  { label: "Time Brightness", model: brightnessSliderVal },
+  { label: "Date Brightness", model: dateBrightnessSliderVal },
+]
 </script>
 
 <style scoped>
  .menu-button {
    position: absolute;
    left: 0;
-   width: 24px;
    z-index: 10;
-   opacity: 70%;
    transition: left 0.2s;
  }
  .menu-button.open {

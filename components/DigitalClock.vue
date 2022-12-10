@@ -66,7 +66,7 @@ function setDateTime() {
 
 onBeforeMount(() => {
   timer = setInterval(setDateTime, 500)
-  setDateTime()
+  /*   setDateTime() */
 })
 
 onBeforeUnmount(() => {

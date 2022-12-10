@@ -1,15 +1,32 @@
 <template>
-  <v-container fluid fill-height class="clock" :style="{fontSize: config.fontSize}">
-    <v-row no-gutters justify="center">
+  <v-container
+    fluid
+    fill-height
+    class="clock"
+    :style="{fontSize: config.fontSize}"
+  >
+    <v-row
+      no-gutters
+      justify="center"
+    >
       <v-col align="center">
-        <div class="time" :style="{color: config.timeColor}">
+        <div
+          class="time"
+          :style="{color: config.timeColor}"
+        >
           {{ timeString }}
-          </div>
+        </div>
       </v-col>
     </v-row>
-    <v-row no-gutters justify="center">
+    <v-row
+      no-gutters
+      justify="center"
+    >
       <v-col align="center">
-        <div class="date" :style="{color: config.dateColor}">
+        <div
+          class="date"
+          :style="{color: config.dateColor}"
+        >
           {{ dateString }}
         </div>
       </v-col>

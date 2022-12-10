@@ -3,11 +3,15 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "lint": "yarn run eslint --ext .ts,.vue .",
+    "lint-fix": "yarn run eslint --fix --ext .ts,.vue .",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-plugin-vue": "^9.8.0",
     "nuxt": "3.0.0"
   },
   "dependencies": {

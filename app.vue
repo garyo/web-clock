@@ -1,8 +1,15 @@
 <template>
   <v-app dark="true">
-    <Config/>
-    <v-container fluid class="app pa-0">
-      <v-row class="fill-height pa-0" align="center" justify="center">
+    <ConfigUi />
+    <v-container
+      fluid
+      class="app pa-0"
+    >
+      <v-row
+        class="fill-height pa-0"
+        align="center"
+        justify="center"
+      >
         <v-col class="pa-0">
           <DigitalClock />
         </v-col>

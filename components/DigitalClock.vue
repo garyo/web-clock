@@ -3,7 +3,7 @@
     fluid
     fill-height
     class="clock"
-    :style="{fontSize: prefs.fontSize}"
+    :style="{fontSize: props.fontSize}"
   >
     <v-row
       no-gutters
@@ -12,20 +12,21 @@
       <v-col align="center">
         <div
           class="time"
-          :style="{color: prefs.timeColor}"
+          :style="{color: props.timeColor}"
         >
           {{ timeString }}
         </div>
       </v-col>
     </v-row>
     <v-row
+      v-if="props.showDate"
       no-gutters
       justify="center"
     >
       <v-col align="center">
         <div
           class="date"
-          :style="{color: prefs.dateColor, fontSize: prefs.dateFontRelSize}"
+          :style="{color: props.dateColor, fontSize: props.dateFontRelSize}"
         >
           {{ dateString }}
         </div>
@@ -38,10 +39,6 @@
 import {DateTime} from 'luxon'
 
 const props = defineProps({
-  clockStyle: {
-    type: String, // digital or analog
-    default: "digital"
-  },
   dateFormat: {
     type: Object,
     default: () => {return {weekday: 'short', month: 'short', day: 'numeric'}}
@@ -49,10 +46,29 @@ const props = defineProps({
   timeFormat: {
     type: Object,
     default: () => {return {hour: 'numeric', minute: '2-digit', second: '2-digit', }}
+  },
+  fontSize: {
+    type: String,
+    default: "12vw"
+  },
+  dateFontRelSize: {
+    type: String,
+    default: "0.8em"
+  },
+  showDate: {
+    type: Boolean,
+    default: true
+  },
+  timeColor: {
+    type: String,
+    default: "#eee"
+  },
+  dateColor: {
+    type: String,
+    default: "#ccc"
   }
 })
 
-let prefs = usePrefs()
 let dateString = ref("...thinking...")
 let timeString = ref("...thinking...")
 let timer = undefined
@@ -82,9 +98,7 @@ onBeforeUnmount(() => {
    height: 100%;
  }
  .date {
-   font-size: 0.5em;
    font-family: "Comfortaa";
    font-weight: 100;
-   color: #ccc;
  }
 </style>

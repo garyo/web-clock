@@ -18,14 +18,16 @@
       <v-container>
         <v-row>
           <v-col>
+            <v-container py-3/><!-- blank space at top -->
             <v-slider
               v-for="slider in sliderDefs"
               :key="slider.label"
-              color="#ddd"
-              v-model=slider.model.value
-              :label=slider.label
-              min="1"
-              max="100"
+              v-model="slider.model.value"
+              color="#ccc"
+              :label="slider.label"
+              :min="slider.min"
+              :max="slider.max"
+              thumb-label="true"
             />
           </v-col>
         </v-row>
@@ -41,29 +43,31 @@ import {useConfig} from '../composables/model'
 const theConfig = useConfig();
 
 const drawerOpen = ref(true)
-const fontSizeSliderVal = ref(12)
-const brightnessSliderVal = ref(100)
-const dateBrightnessSliderVal = ref(90)
-
-watch(fontSizeSliderVal, (value: number) => {
-  theConfig.fontSize = value * 20 / 100 + 'vw'
-})
-
-watch(brightnessSliderVal, (value: number) => {
-  const scaledVal = Math.round(value * 255 / 100)
-  theConfig.timeColor = `rgba(${scaledVal},${scaledVal},${scaledVal})`
-})
-
-watch(dateBrightnessSliderVal, (value: number) => {
-  const scaledVal = Math.round(value * 255 / 100)
-  theConfig.dateColor = `rgba(${scaledVal},${scaledVal},${scaledVal})`
-})
 
 const sliderDefs = [
-  { label: "Font Size", model: fontSizeSliderVal },
-  { label: "Time Brightness", model: brightnessSliderVal },
-  { label: "Date Brightness", model: dateBrightnessSliderVal },
+  { label: "Font Size", model: ref(12),
+    min: 1, max: 20,
+    callback: (value: number) => {
+      theConfig.fontSize = value + 'vw'
+  }},
+  { label: "Time Brightness", model: ref(100),
+    min: 1, max: 255,
+    callback: (value: number) => {
+      theConfig.timeColor = `rgba(${value},${value},${value})`
+  }},
+  { label: "Date Brightness", model: ref(90),
+    min: 1, max: 255,
+    callback: (value: number) => {
+      theConfig.dateColor = `rgba(${value},${value},${value})`
+    }
+  }
 ]
+
+// Call callbacks when value changes
+for (const slider of sliderDefs) {
+  watch(slider.model, (value) => slider.callback && slider.callback(value))
+}
+
 </script>
 
 <style scoped>

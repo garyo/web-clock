@@ -11,14 +11,15 @@ export default defineNuxtConfig({
     },
   },
   app: {
+    baseURL: '/web-clock/',
     // Global page headers: https://go.nuxtjs.dev/config-head
     head: {
-      title: 'web-clock',
+      title: 'web-clock3',
       htmlAttrs: {
         lang: 'en'
       },
       meta: [
-        { hid: 'description', name: 'description', content: 'Simple Full-Page Web Clock' },
+        { hid: 'description', name: 'description', content: 'Simple Full-Page Web Clock (Vue3)' },
         { name: 'format-detection', content: 'telephone=no' }
       ],
       link: [

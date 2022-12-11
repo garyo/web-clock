@@ -12,7 +12,8 @@
   "devDependencies": {
     "eslint": "^8.29.0",
     "eslint-plugin-vue": "^9.8.0",
-    "nuxt": "3.0.0"
+    "nuxt": "3.0.0",
+    "push-dir": "^0.4.1"
   },
   "dependencies": {
     "@mdi/font": "^7.0.96",

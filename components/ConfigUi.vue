@@ -5,6 +5,7 @@
       icon
       color="rgba(100, 100, 100)"
       :class="{open: drawerOpen, hidden: hideButton}"
+      :style="{left: buttonPosition+'px'}"
       @click="drawerOpen=!drawerOpen"
     >
       ☰
@@ -13,8 +14,10 @@
       v-model="drawerOpen"
       class="nav-drawer"
       color="rgba(100, 100, 100, 0.5)"
+      :width="drawerWidth"
       absolute
       touchless
+      stateless
     >
       <v-container>
         <v-row>
@@ -49,13 +52,25 @@
 </template>
 
 <script setup lang="ts">
+import {useDisplay} from 'vuetify'
 
 const {params} = usePrefs()
+const {mobile} = useDisplay()
 
 const drawerOpen = ref(true)
 const hideButton = ref(false)
 
 let timer: NodeJS.Timeout|null = null
+
+const drawerWidth = computed(() => {
+  return mobile.value ? 250 : 400
+})
+const buttonPosition = computed(() => {
+  if (!drawerOpen.value)
+    return 0
+  else
+    return mobile.value ? 250 : 400
+})
 
 onMounted(() => {
   // Auto-close drawer after a few seconds so the user
@@ -89,14 +104,10 @@ watch(drawerOpen, (newVal, oldVal) => {
 <style scoped>
  .menu-button {
    position: absolute;
-   left: 0;
    z-index: 10;
    opacity: 0.7;
    transition: left 0.2s;
    transition: opacity 2.0s;
- }
- .menu-button.open {
-   left: 256px;
  }
  .menu-button.hidden {
    opacity: 0.2;

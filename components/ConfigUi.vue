@@ -14,6 +14,7 @@
       class="nav-drawer"
       color="rgba(100, 100, 100, 0.5)"
       absolute
+      touchless
     >
       <v-container>
         <v-row>

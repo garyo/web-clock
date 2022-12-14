@@ -27,7 +27,7 @@ const params: Params  = {
   timeBrightness: {
     type: "slider",
     label: "Time Brightness",
-    model: ref(100),
+    model: ref(220),
     min: 1, max: 255,
   },
   showDate: {
@@ -38,7 +38,7 @@ const params: Params  = {
   dateBrightness: {
     type: "slider",
     label: "Date Brightness",
-    model: ref(90),
+    model: ref(150),
     min: 1, max: 255,
   }
 }

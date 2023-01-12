@@ -43,6 +43,13 @@
                 :label="param.label"
                 hide-details
               />
+              <v-select
+                v-if="param.type=='menu'"
+                v-model="param.model.value"
+                :items="param.menu_items"
+                :label="param.label"
+                hide-details
+              />
             </div>
           </v-col>
         </v-row>

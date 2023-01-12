@@ -12,11 +12,7 @@
       >
         <v-col class="pa-0">
           <DigitalClock
-            :font-size="paramValues['fontSize']+'vw'"
-            :time-color="makeColor(paramValues['timeBrightness'])"
-            :show-date="paramValues['showDate']"
-            :date-color="makeColor(paramValues['dateBrightness'])"
-            :date-font-rel-size="paramValues['dateFontRelSize']+'em'"
+            :params="paramValues"
           />
         </v-col>
       </v-row>
@@ -25,13 +21,9 @@
 </template>
 
 <script setup lang="ts">
-const {paramValues, loadPrefs} = usePrefs()
+const {params, paramValues, loadPrefs} = usePrefs()
 
 const appName = "Web Clock 3"
-
-function makeColor(v: number) {
-  return `rgba(${v}, ${v}, ${v})`
-}
 
 onMounted(() => {
   loadPrefs()

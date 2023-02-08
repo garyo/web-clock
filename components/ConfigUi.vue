@@ -26,6 +26,7 @@
             <div
               v-for="(param, name) in params"
               :key="name"
+              class="paramui"
             >
               <v-slider
                 v-if="param.type=='slider'"
@@ -70,13 +71,13 @@ const hideButton = ref(false)
 let timer: NodeJS.Timeout|null = null
 
 const drawerWidth = computed(() => {
-  return mobile.value ? 250 : 400
+  return mobile.value ? 300 : 800
 })
 const buttonPosition = computed(() => {
   if (!drawerOpen.value)
     return 0
   else
-    return mobile.value ? 250 : 400
+    return mobile.value ? 300 : 800
 })
 
 onMounted(() => {
@@ -123,4 +124,9 @@ watch(drawerOpen, (newVal, oldVal) => {
    opacity: 0.9;
    color: rgba(200, 200, 200)
  }
+ .paramui {
+   height: 3em;
+   color: white;
+ }
+
 </style>

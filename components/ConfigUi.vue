@@ -71,13 +71,13 @@ const hideButton = ref(false)
 let timer: NodeJS.Timeout|null = null
 
 const drawerWidth = computed(() => {
-  return mobile.value ? 500 : 800
+  return mobile.value ? 800 : 1000
 })
 const buttonPosition = computed(() => {
   if (!drawerOpen.value)
     return 0
   else
-    return mobile.value ? 500 : 800
+    return mobile.value ? 800 : 1000
 })
 
 onMounted(() => {
